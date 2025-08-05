@@ -1,21 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation, Link, Outlet } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      localStorage.removeItem("token");
+      navigate("/api/auth/login");
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion:", error);
+    }
+  };
+
   const isDarkPage = location.pathname === "/";
   const linkColor = isDarkPage ? "text-white" : "text-black";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
-  });
+  }, []);
 
   const links = [
     { name: "الرئيسية", path: "/" },
-  
     { name: "تواصل معنا", path: "/contact" },
   ];
 
@@ -46,8 +58,14 @@ export default function Nav() {
                 </NavLink>
               ))}
 
-              {/* أزرار التسجيل والدخول */}
-              {!isAuthenticated && (
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 text-sm bg-red-500 text-white rounded-full font-medium hover:bg-red-600 transition"
+                >
+                  تسجيل الخروج
+                </button>
+              ) : (
                 <div className="flex flex-col gap-2 sm:flex-row sm:gap-0 sm:space-x-3">
                   <Link
                     to="/api/auth/login"
@@ -91,60 +109,70 @@ export default function Nav() {
         </div>
       </nav>
 
-   {/* قائمة الموبايل */}
-<div
-  className={`fixed inset-0 bg-gray-900 z-40 transform transition-transform duration-300 ${
-    isMenuOpen ? "translate-x-0" : "translate-x-full"
-  } sm:hidden`}
-  dir="rtl"
->
-  <div className="p-6 flex flex-col space-y-6 h-full text-right items-end">
-    <button
-      className="self-end text-white text-2xl"  // دير self-end باش يجي اليمين
-      onClick={() => setIsMenuOpen(false)}
-    >
-      ✕
-    </button>
+      {/* قائمة الموبايل */}
+      <div
+        className={`fixed inset-0 bg-gray-900 z-40 transform transition-transform duration-300 ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        } sm:hidden`}
+        dir="rtl"
+      >
+        <div className="p-6 flex flex-col space-y-6 h-full text-right items-end">
+          <button
+            className="self-end text-white text-2xl"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            ✕
+          </button>
 
-    {/* الروابط */}
-    <div className="flex flex-col space-y-6 mt-6 w-full">
-      {links.map(({ name, path }) => (
-        <Link
-          key={path}
-          to={path}
-          onClick={() => setIsMenuOpen(false)}
-          className="text-white text-xl font-medium hover:text-red-400 transition text-right block w-full"
-        >
-          {name}
-        </Link>
-      ))}
-    </div>
+          {/* الروابط */}
+          <div className="flex flex-col space-y-6 mt-6 w-full">
+            {links.map(({ name, path }) => (
+              <Link
+                key={path}
+                to={path}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-white text-xl font-medium hover:text-red-400 transition text-right block w-full"
+              >
+                {name}
+              </Link>
+            ))}
 
-    {/* أزرار التسجيل والدخول */}
-    {!isAuthenticated && (
-      <div className="mt-auto space-y-4 w-full">
-        <Link
-          to="/api/auth/login"
-          onClick={() => setIsMenuOpen(false)}
-          className="block text-center px-4 py-3 border border-blue-500 text-blue-400 rounded-full font-medium hover:bg-blue-500 hover:text-white transition"
-        >
-          سجل الدخول
-        </Link>
-        <Link
-          to="/api/auth/register"
-          onClick={() => setIsMenuOpen(false)}
-          className="block text-center px-4 py-3 bg-blue-500 text-white rounded-full font-medium hover:bg-blue-600 transition"
-        >
-          دير حساب
-        </Link>
+            {isAuthenticated && (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setIsMenuOpen(false);
+                }}
+                className="text-white text-xl font-medium hover:text-red-400 transition text-right block w-full"
+              >
+                تسجيل الخروج
+              </button>
+            )}
+          </div>
+
+          {!isAuthenticated && (
+            <div className="mt-auto space-y-4 w-full">
+              <Link
+                to="/api/auth/login"
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-center px-4 py-3 border border-blue-500 text-blue-400 rounded-full font-medium hover:bg-blue-500 hover:text-white transition"
+              >
+                سجل الدخول
+              </Link>
+              <Link
+                to="/api/auth/register"
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-center px-4 py-3 bg-blue-500 text-white rounded-full font-medium hover:bg-blue-600 transition"
+              >
+                دير حساب
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
-    )}
-  </div>
-</div>
-
 
       {/* محتوى الصفحة */}
-      <div className="min-h-screen p-0 m-0 top-0 ">
+      <div className="min-h-screen p-0 m-0 top-0">
         <Outlet />
       </div>
     </div>

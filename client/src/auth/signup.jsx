@@ -138,7 +138,7 @@ function SignUp() {
               placeholder=" رقم الهاتف (اختياري)"
               className="w-full px-4 py-3  text-yellow-300 border border-black rounded-md placeholder-red-500 focus:outline-none focus:ring-2 focus:ring-black transition-all duration-200"
               value={phone}
-              onBlur={() => validateField("phone", phone)}
+              
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>

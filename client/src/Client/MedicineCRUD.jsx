@@ -95,7 +95,7 @@ const MedicineCRUD = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-12 p-6 bg-gradient-to-r from-indigo-50 via-white to-pink-50 rounded-xl shadow-lg">
+    <div className="max-w-6xl mx-auto mt-12 p-6 pt-10 bg-gradient-to-r from-indigo-50 via-white to-pink-50 rounded-xl shadow-lg">
       <h1 className="text-3xl font-extrabold text-center mb-8 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-indigo-600">
         🩺 تسيير الدوايات
       </h1>

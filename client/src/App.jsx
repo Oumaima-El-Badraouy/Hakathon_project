@@ -13,9 +13,10 @@ function App() {
   return (
     <Router>
       <Routes>
-       <Route path="/api/medications" element={<MedicineCRUD />} />
+      
       <Route path="/" element={<Nav />}>
-        <Route index element={<Home />} />
+        <Route index element={<Home />} /> 
+        <Route path="/api/medications" element={<MedicineCRUD />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/api/auth/login" element={<Login />} />
         <Route path="/api/auth/register" element={<Signup />} />

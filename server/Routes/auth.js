@@ -34,10 +34,7 @@ router.post("/login", async (req, res) => {
   const token = jwt.sign({ user: { id: user._id } }, process.env.JWT_SECRET, { expiresIn: "7d" });
   res.json({ token ,redirect:"/api/medications" });
 });
-router.post("/logout", async (req, res) => {
-  localStorage.removeItem("token");
-  res.json({ msg: "Logged out successfully" });
-});
+
 // POST => Send reset link
 router.post('/forgot-password', forgetPassword);
 
