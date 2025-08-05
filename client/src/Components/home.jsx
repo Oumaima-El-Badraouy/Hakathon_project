@@ -21,7 +21,8 @@ function Home() {
     <section className="h-screen bg-center bg-no-repeat bg-[url('/images/img1.webp')] bg-gray-700 bg-blend-multiply">
       <div className="px-2 mx-auto max-w-screen-xl text-center py-54 lg:py-45">
         <h1 className="mb-8 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
-          كتـنسا دواك؟ منصتنا كتذكرك في الوقت الصحيح، صحتك أولويتنا
+          <br/> كتـنسا دواك؟ منصتنا كتذكرك في الوقت الصحيح،
+          صحتك أولويتنا
         </h1>
         <div className="sm:justify-center pt-10 sm:space-y-0">
           <button
