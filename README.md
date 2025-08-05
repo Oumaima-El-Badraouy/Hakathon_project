@@ -1,5 +1,4 @@
 # Hakathon_project
-أكيد! ها نموذج **README.md** بسيط وعملي مناسب لمشروعك ديال منصة تذكير بالأدوية مع المصادقة (auth) والتنقل بين الصفحات.
 
 ````markdown
 # Matnsach Platform
